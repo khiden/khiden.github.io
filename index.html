@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>khiden — maldev / внутренний пентест · вариант 3</title>
+<style>
+:root{--bg:#101014;--bg2:#17171d;--fg:#e8e8ee;--dim:#9a9aa8;--accent:#7c6cff;--ok:#4ade80;--wip:#fbbf24;--border:#2a2a34}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,"Segoe UI",Roboto,sans-serif}
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+nav{background:var(--bg2);border-right:1px solid var(--border);padding:32px 20px;position:sticky;top:0;height:100vh}
+nav .nick{font-size:22px;font-weight:800;color:var(--accent)}
+nav .role{color:var(--dim);font-size:13px;margin-top:4px;margin-bottom:32px}
+nav a{display:block;color:var(--dim);padding:8px 12px;border-radius:8px;margin-bottom:4px;text-decoration:none;font-size:14px}
+nav a:hover{background:var(--bg);color:var(--fg)}
+main{padding:48px 48px 96px;max-width:820px}
+.tagline{color:var(--dim);margin:10px 0 40px;max-width:560px}
+h2{font-size:20px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+h2::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--accent)}
+section{margin-bottom:48px}
+.item{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:10px}
+.item .nm{font-weight:600}
+.item .nm small{display:block;color:var(--dim);font-weight:400;font-size:13px;margin-top:2px}
+.badge{font-size:12px;font-weight:700;padding:4px 12px;border-radius:999px;white-space:nowrap}
+.badge.done{background:rgba(74,222,128,.12);color:var(--ok);border:1px solid rgba(74,222,128,.4)}
+.badge.wip{background:rgba(251,191,36,.10);color:var(--wip);border:1px solid rgba(251,191,36,.4)}
+.badge.part{background:rgba(156,163,175,.12);color:var(--dim);border:1px solid rgba(156,163,175,.4)}
+p.desc{color:var(--dim);margin-bottom:14px}
+.kv{display:grid;grid-template-columns:180px 1fr;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.kv div{padding:12px 18px;border-bottom:1px solid var(--border)}
+.kv div:nth-last-child(-n+2){border-bottom:none}
+.kv .k{color:var(--dim);font-size:13px;background:rgba(255,255,255,.02)}
+ul.list{list-style:none}
+ul.list li{padding:5px 0 5px 22px;position:relative;color:var(--dim);font-size:15px}
+ul.list li::before{content:"→";color:var(--accent);position:absolute;left:0}
+footer{color:var(--dim);font-size:13px;border-top:1px solid var(--border);padding-top:24px}
+@media(max-width:720px){.layout{grid-template-columns:1fr}nav{position:static;height:auto;border-right:none;border-bottom:1px solid var(--border)}}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav>
+  <div class="nick">khiden</div>
+  <div class="role">maldev / внутрянка</div>
+  <a href="#certs">Сертификаты</a>
+  <a href="#maldev">Инструменты</a>
+  <a href="#what">Что делаю</a>
+  <a href="#stack">Стек</a>
+  <a href="#links">Ссылки</a>
+</nav>
+<main>
+  <h1 style="font-size:36px;font-weight:800">maldev / внутренний пентест</h1>
+  <p class="tagline">Разбираю механизмы на минимальных полигонах, проверяю живыми прогонами, смотрю на код глазами обеих сторон.</p>
+
+  <section id="certs">
+    <h2>Сертификаты</h2>
+    <div class="item"><div class="nm">CRTO<small>Red Team Ops: AD, C2-инфраструктура, evasion</small></div><span class="badge done">пройден</span></div>
+    <div class="item"><div class="nm">CRTO 2<small>продвинутый курс</small></div><span class="badge wip">в процессе</span></div>
+    <div class="item"><div class="nm">CAPE<small>практическая атака на предприятие</small></div><span class="badge wip">в процессе</span></div>
+  </section>
+
+  <section id="maldev">
+    <h2>Свои инструменты</h2>
+    <p class="desc">Полный наступательный набор, написанный с нуля и проверенный в лаборатории:</p>
+    <div class="item"><div class="nm">C2-агент<small>шифрованный транспорт, сон, пивот, killdate</small></div><span class="badge done">готов</span></div>
+    <div class="item"><div class="nm">Loader<small>module stomping, загрузка образа</small></div><span class="badge part">частично готов</span></div>
+    <div class="item"><div class="nm">Dropper<small>доставка без следов на диске</small></div><span class="badge done">готов</span></div>
+    <div class="item"><div class="nm">SOCKS5-клиент + сервер<small>цепочки прокси для тулинга, не палится EDR</small></div><span class="badge done">готов</span></div>
+  </section>
+
+  <section id="what">
+    <h2>Что делаю</h2>
+    <ul class="list">
+      <li>внутренний пентест: AD, lateral movement, пост-эксплуатация</li>
+      <li>наступательный тулинг: C2, импланты, прокси-цепочки — пишу то, чем сам работаю</li>
+      <li>evasion-исследования: память, события, форензик — проверка живыми прогонами</li>
+    </ul>
+  </section>
+
+  <section id="stack">
+    <h2>Стек</h2>
+    <div class="kv">
+      <div class="k">Low-level</div><div>C/C++, PE/COFF, Windows internals, PIC-код</div>
+      <div class="k">Инфраструктура</div><div>Go, Python, WinRM, SMB, Kerberos</div>
+      <div class="k">Наступательный</div><div>NetExec, Impacket, свой C2 / прокси / BOF</div>
+      <div class="k">Оборонительный</div><div>Sysmon, ETW, pe-sieve / Moneta / Patriot</div>
+    </div>
+  </section>
+
+  <section id="links">
+    <h2>Ссылки</h2>
+    <ul class="list">
+      <li>GitHub — <a href="https://github.com/khiden" style="color:var(--accent)">github.com/khiden</a></li>
+    </ul>
+  </section>
+
+  <footer>khiden · 2026</footer>
+</main>
+</div>
+</body>
+</html>
